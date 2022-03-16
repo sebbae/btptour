@@ -1,8 +1,8 @@
 site_name: BTP Tour
 docs_dir: docs
 site_dir: docs-gen
-repo_url: hhttps://github.com/sebbae/btptour
-site_url: https://github.com/pages/sebbae/btptour
+repo_url: https://github.com/sebbae/btptour
+site_url: https://btptour.baechle.me
 nav:
     - 'Home': 'index.md'
     - 'Getting Started':
