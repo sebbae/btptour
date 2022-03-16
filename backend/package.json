@@ -1,0 +1,33 @@
+{
+  "name": "btptour-backend",
+  "version": "1.0.0",
+  "description": "Backend for BTP Tour",
+  "private": true,
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "@sap/audit-logging": "^4.2.0",
+    "@sap/cds": "^5.7.4",
+    "@sap/cds-dk": "^4.7.2",
+    "@sap/xsenv": "^3.1.0",
+    "@sap/xssec": "^3.2.11",
+    "express": "^4",
+    "passport": "^0.4.1",
+    "sqlite3": "^5",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "cds run",
+    "watch": "cds watch --in-memory",
+    "build": "cds build --production && cp .cdsrc.json sqlite.db gen/srv",
+    "deploy-local": "cds deploy --to sqlite:sqlite.db --no-save",
+    "docker:build:cds": "cds build/all --clean",
+    "docker:build:image": "docker build -t btptour-backend:latest .",
+    "docker:start:cds": "docker run -p 4004:4004 -t btptour-backend:latest",
+    "docker:shell": "docker exec -it btptour-backend:latest /bin/bash",
+    "docker:restart:cds": "docker start -ai btptour-backend"
+  }
+}

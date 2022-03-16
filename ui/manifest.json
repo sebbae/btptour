@@ -1,0 +1,13 @@
+{
+  "sap.app": {
+    "id": "ui"
+  },
+  "sap.cloud": {
+    "public": true
+  },
+  "sap.platform.cf": {
+    "oAuthScopes": [
+      "uaa.user"
+    ]
+  }
+}

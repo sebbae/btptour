@@ -1,0 +1,35 @@
+specVersion: '1.0'
+metadata:
+  name: 'people'
+type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+builder:
+  customTasks:
+    - name: webide-extension-task-updateManifestJson
+      beforeTask: generateManifestBundle
+      configuration:
+        appFolder: webapp
+        destDir: dist
+    - name: webide-extension-task-resources
+      afterTask: generateVersionInfo
+      configuration:
+        nameSpace: me/baechle/btptour
+    - name: webide-extension-task-copyFile
+      afterTask: webide-extension-task-resources
+      configuration:
+        srcFile: "/xs-app.json"
+        destFile: "/xs-app.json"
+    - name: webide-extension-task-lint
+      afterTask: webide-extension-task-copyFile
+      configuration:
+        destDir: dist
+        appFolder: webapp
+        nameSpace: me/baechle/btptour
+    -  name: ui5-task-zipper
+       afterTask: generateCachebusterInfo
+       configuration:
+        archiveName: people
+        additionalFiles:
+        - xs-app.json

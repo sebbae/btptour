@@ -1,0 +1,27 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "credentials": {
+        "database": "sqlite.db"
+      }
+    },
+    "uaa": {
+      "kind": "dummy-auth"
+    },
+    "auth": {
+      "[development]": {
+        "strategy": "mock"
+      },
+      "users": {
+        "btptour": {
+          "password": "pass",
+          "roles": [
+            "Hitchhiker"
+          ],
+          "userAttributes": {}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+    "services": {
+        "LaunchPage": {
+            "adapter": {
+                "config": {
+                    "catalogs": [
+                    ],
+                    "groups": [
+                        {
+                            "id": "home_group",
+                            "title": "My Home",
+                            "isPreset": true,
+                            "isVisible": true,
+                            "isGroupLocked": true,
+                            "tiles": [
+                                {
+                                    "id": "people",
+                                    "size": "1x1",
+                                    "tileType": "sap.ushell.ui.tile.StaticTile",
+                                    "properties": {
+                                        "chipId": "people",
+                                        "title": "People",
+                                        "subtitle": "People Browser",
+                                        "info": "",
+                                        "icon": "sap-icon://accidental-leave",
+                                        "targetURL": "#people-display"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "openapi",
+                            "title": "OpenAPI Docs",
+                            "isPreset": true,
+                            "isVisible": true,
+                            "isGroupLocked": false,
+                            "tiles": [
+                                {
+                                    "id": "info-api",
+                                    "size": "1x1",
+                                    "tileType": "sap.ushell.ui.tile.StaticTile",
+                                    "properties": {
+                                        "chipId": "info-api",
+                                        "title": "Info Swagger UI",
+                                        "subtitle": "",
+                                        "info": "",
+                                        "icon": "sap-icon://product",
+                                        "targetURL": "/api-docs/info/"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "NavTargetResolution": {
+            "adapter": {
+                "config": {
+                    "applications": {
+                        "people-display": {
+                            "additionalInformation": "SAPUI5.Component=me.baechle.btptour.people",
+                            "applicationType": "URL",
+                            "url": "./apps/people/webapp"
+                        }
+                    }
+                }
+            },
+            "config": {
+                "enableClientSideTargetResolution": true
+            }
+        },
+        "ClientSideTargetResolution": {
+            "adapter": {
+                "config": {
+                    "inbounds": {}
+                }
+            }
+        }
+	}
+}

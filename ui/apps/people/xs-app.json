@@ -1,0 +1,21 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"websockets": {
+		"enabled": false
+	},
+	"routes": [
+		{
+			"source": "^/info/(.*)$",
+			"target": "/info/$1",
+			"destination": "BTPTOUR_BACKEND",
+			"authenticationType": "xsuaa"
+		},
+		{
+			"source": "^(.*)",
+			"target": "$1",
+			"authenticationType": "xsuaa",
+			"service": "html5-apps-repo-rt"
+		}
+	]
+}

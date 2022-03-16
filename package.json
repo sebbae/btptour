@@ -1,0 +1,9 @@
+{
+  "name": "btptour",
+  "version": "0.0.1",
+  "description": "BTP Tour",
+  "repository": "https://github.com/sebbae/btptour",
+  "scripts": {
+    "docker:docs:preview": "docker run --rm -it -p 8000:8000 -v ${PWD}/docs:/docs squidfunk/mkdocs-material serve -a 0.0.0.0:8000"
+  }
+}

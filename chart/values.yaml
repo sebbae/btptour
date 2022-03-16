@@ -1,0 +1,19 @@
+global:
+  clusterHost: ""
+  containerRegistry: "ghcr.io"
+  containerRegistryPath: ""
+backend:
+  replicaCount: 1
+  image:
+    name: btptour-backend:latest
+    port: 4004
+  imagePullSecrets:
+    - name: regcred
+  service:
+    port: 4004
+ui:
+  replicaCount: 1
+  image:
+    name: btptour-ui:latest
+  imagePullSecrets:
+    - name: regcred

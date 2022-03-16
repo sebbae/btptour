@@ -1,0 +1,18 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: {{ include "backend.fullname" . }}
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+spec:
+  service:
+    host: {{ include "backend.fullname" . }}
+    name: {{ include "backend.fullname" . }}
+    port: {{ .Values.service.port }}
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /.*
+      methods: ["GET", "PUT", "HEAD", "POST", "PATCH", "DELETE" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []

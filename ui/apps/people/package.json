@@ -1,0 +1,28 @@
+{
+	"name": "mis",
+	"version": "0.0.1",
+	"sapux": true,
+	"description": "BTP Tour People HTML5 application",
+	"author": "SAP SE",
+	"scripts": {
+		"build": "ui5 build --clean-dest --include-task=generateManifestBundle generateCachebusterInfo"
+	},
+	"dependencies": {
+		"@sap/ui5-builder-webide-extension": "^1.0.9",
+		"ui5-task-zipper": "^0.3.1"
+	},
+	"devDependencies": {
+		"@sap/ux-specification": "latest",
+		"@sap/ux-ui5-tooling": "1",
+		"@ui5/cli": "^2.9.0",
+		"@ui5/fs": "^2.0.1",
+		"@ui5/logger": "2.0.0"
+	},
+	"ui5": {
+		"dependencies": [
+			"@sap/ux-ui5-tooling",
+			"@sap/ui5-builder-webide-extension",
+			"ui5-task-zipper"
+		]
+	}
+}

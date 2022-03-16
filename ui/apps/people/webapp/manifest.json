@@ -1,0 +1,180 @@
+{
+  "_version": "",
+  "sap.app": {
+    "id": "me.baechle.btptour.people",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "./info/",
+        "type": "OData",
+        "settings": {
+          "annotations": ["annotation"],
+          "odataVersion": "4.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "users-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "people",
+          "action": "display",
+          "title": "{{appTitle}}",
+          "subTitle": "{{appSubtitle}}",
+          "info": "{{appInfo}}",
+          "icon": "sap-icon://accidental-leave"
+        }
+      }
+    },
+    "offline": false,
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "ui5template.fiorielements.v4.lrop",
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "resources": {
+      "js": [],
+      "css": []
+    },
+    "dependencies": {
+      "minUI5Version": "1.76.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "PersonsList",
+          "target": "PersonsList"
+        },
+        {
+          "pattern": "PERSONS({key}):?query:",
+          "name": "PersonsObjectPage",
+          "target": "PersonsObjectPage"
+        }
+      ],
+      "targets": {
+        "PersonsList": {
+          "type": "Component",
+          "id": "PersonsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "PERSONS",
+              "variantManagement": "Page",
+              "navigation": {
+                "PERSONS": {
+                  "detail": {
+                    "route": "PersonsObjectPage"
+                  }
+                }
+              },
+              "initialLoad": true
+            }
+          }
+        },
+        "PersonsObjectPage": {
+          "type": "Component",
+          "id": "PersonsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "PERSONS",
+              "editableHeaderContent": false,
+              "content": {
+                "header": {
+                  "actions": {
+                    "unmaskPatientData": {
+                      "press": "me.baechle.btptour.people.ext.action.call",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>xbtn.call}"
+                    }
+                  }
+                },
+                "body": {
+                  "sections": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  },
+  "sap.platform.abap": {
+    "_version": "1.1.0",
+    "uri": ""
+  },
+  "sap.platform.hcp": {
+    "_version": "1.1.0",
+    "uri": ""
+  },
+  "sap.fiori": {
+    "_version": "1.1.0",
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "btptour"
+  }
+}

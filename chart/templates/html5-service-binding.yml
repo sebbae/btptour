@@ -1,0 +1,7 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: html5-repo-host-binding
+spec:
+  instanceRef:
+    name: html5-repo-host

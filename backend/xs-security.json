@@ -1,0 +1,21 @@
+{
+  "xsappname": "btptour-backend",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Hitchhiker",
+      "description": "Hitchhiker"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Hitchhiker",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Hitchhiker"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

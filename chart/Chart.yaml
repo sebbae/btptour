@@ -1,0 +1,6 @@
+apiVersion: v2
+name: btptour
+description: A Helm chart for full deployment of BTP Tour
+type: application
+version: 0.0.1
+appVersion: "0.0.1"

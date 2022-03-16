@@ -1,0 +1,20 @@
+{
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "extends": "ui5",
+  "globals": {
+    "sap": true,
+    "jQuery": true
+  },
+  "rules": {
+    "getter-return": "off",
+    "ui5/no-global-name": "off",
+    "ui5/hungarian-notation": "off",
+    "no-console": "off",
+    "no-magic-numbers": "off"
+  }
+}

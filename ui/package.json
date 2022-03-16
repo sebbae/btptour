@@ -1,0 +1,32 @@
+{
+    "name": "btptour-ui",
+    "version": "0.0.1",
+    "description": "HTML5 applications for BTP Tour",
+    "private": true,
+    "scripts": {
+        "install:people": "cd apps/people && npm install",
+        "build:people": "cd apps/people && npm run build -- --dest ../../dist/people",
+        "docker:image:build": "docker build -t btptour-ui:latest .",
+        "docker:shell": "docker exec -it btptour-ui:latest /bin/bash",
+        "start:local": "ui5 serve"
+    },
+    "devDependencies": {
+        "eslint": "^7.19.0",
+        "eslint-config-ui5": "0.0.17",
+        "eslint-plugin-ui5": "^0.1.0",
+        "ui5-middleware-cfdestination": "^0.4.0",
+        "ui5-middleware-index": "^0.2.2",
+        "ui5-middleware-livereload": "^0.4.3"
+    },
+    "ui5": {
+        "dependencies": [
+            "ui5-middleware-index",
+            "ui5-middleware-livereload",
+            "ui5-middleware-cfdestination"
+        ]
+    },
+    "dependencies": {
+        "@ui5/cli": "^2.6.1",
+        "dashboard": "^0.0.1"
+    }
+}

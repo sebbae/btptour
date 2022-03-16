@@ -1,0 +1,9 @@
+applications:
+-  name: btptour.backend
+   path: ./gen/srv
+   memory: 4G
+   disk_quota: 1024M
+   buildpacks:
+     - https://github.com/cloudfoundry/nodejs-buildpack
+   services:
+   env:

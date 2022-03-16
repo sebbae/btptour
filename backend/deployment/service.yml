@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: btptour-backend-service
+  namespace: btptour
+spec:
+  selector:
+    app: btptour-backend
+  ports:
+    - protocol: TCP
+      port: 4004

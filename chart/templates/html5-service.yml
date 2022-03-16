@@ -1,0 +1,7 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: html5-repo-host
+spec:
+  clusterServiceClassExternalName: html5-apps-repo
+  clusterServicePlanExternalName: app-host

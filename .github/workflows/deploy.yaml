@@ -1,0 +1,69 @@
+name: Deploy Manually
+
+# Triggered manually
+on: workflow_dispatch
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE_NAME: btptour-backend
+  FRONTEND_IMAGE_NAME: btptour-ui
+  REPO_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  deploy-to-btp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ env.BACKEND_IMAGE_NAME }}
+
+      - name: Build and push Docker image for frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: ./backend/
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ env.BACKEND_IMAGE_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta2
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ env.FRONTEND_IMAGE_NAME }}
+
+      - name: Build and push Docker image for frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: ./ui/
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ env.FRONTEND_IMAGE_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Get Kyma Cluster Host
+        uses: wahyd4/kubectl-helm-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.BTP_TRIAL_KUBECONFIG }}
+        with:
+          args: |
+            kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}' | sed "s/https:\\/\\/api.//g" > ./server.txt
+            printf CLUSTER_HOST= | cat - server.txt >> $GITHUB_ENV
+
+      - name: Deploy to Kyma
+        uses: wahyd4/kubectl-helm-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.BTP_TRIAL_KUBECONFIG }}
+        with:
+          args:  |
+            helm upgrade --install --wait -n btptour --set global.containerRegistryPath=/${{ env.REPO_OWNER }} --set global.clusterHost=${{ env.CLUSTER_HOST }} -f ./chart/values.yaml btptour ./chart/

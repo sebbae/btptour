@@ -1,0 +1,21 @@
+# Dependencies
+node_modules
+
+# Build artifacts
+dist
+docs-gen
+
+# Auxilliary logs, caches etc.
+.DS_Store
+*.log
+*.bak
+
+# Local CAP config
+cdsrc-private.json
+
+# local K8s config
+kubeconfig.yml
+
+# IDE configurations
+.vscode
+

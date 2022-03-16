@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btptour-backend
+  namespace: btptour
+  labels:
+    app: btptour-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: btptour-backend
+  template:
+    metadata:
+      labels:
+        app: btptour-backend
+    spec:
+      containers:
+      - name: btptour-backend
+        image: ghcr.io/sebbae/btptour-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4004
+      imagePullSecrets:
+      - name: regcred

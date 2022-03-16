@@ -1,0 +1,23 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: btptour-backend-service-api
+  namespace: btptour
+  labels:
+    app: btptour-backend
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+  - path: /.*
+    accessStrategies:
+    - config: {}
+      handler: noop
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+  service:
+    host: btptour-backend
+    name: btptour-backend-service
+    port: 4004

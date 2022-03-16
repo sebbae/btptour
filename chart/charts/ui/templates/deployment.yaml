@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ui.fullname" . }}
+  labels:
+    {{- include "ui.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ui.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ui.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ui.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.global.containerRegistry }}{{ .Values.global.containerRegistryPath }}/{{ .Values.image.name }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SAP_CLOUD_SERVICE
+              value: btptour
+            - name: BACKEND_DESTINATIONS
+              value: "[{
+                \"Name\":\"BTPTOUR_BACKEND\",
+                \"Description\":\"BTP Tour Backend Service\",
+                \"Type\":\"HTTP\",
+                \"ProxyType\":\"Internet\",
+                \"URL\":\"https://btptour-backend.{{ .Values.global.clusterHost }}\",
+                \"Authentication\":\"NoAuthentication\",
+                \"HTML5.forwardAuthToken\": true }]"
+          ports:
+            - name: http
+              containerPort: {{ .Values.image.port }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: html5-repo-host
+              mountPath: "/etc/secrets/sapcp/html5-apps-repo/html5-repo-host"
+              readOnly: true
+            - name: xsuaa
+              mountPath: "/etc/secrets/sapcp/xsuaa/xsuaa"
+              readOnly: true
+            - name: destination
+              mountPath: "/etc/secrets/sapcp/destination/destination"
+              readOnly: true
+      volumes:
+        - name: html5-repo-host
+          secret:
+            secretName: html5-repo-host-binding
+        - name: xsuaa
+          secret:
+            secretName: xsuaa-binding
+        - name: destination
+          secret:
+            secretName: destination-binding
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,12 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: destination
+  namespace: {{ .Values.global.namespace }}
+spec:
+  clusterServiceClassExternalName: destination
+  clusterServicePlanExternalName: lite
+  parameters:
+    HTML5Runtime_enabled: true
+    version: "1.0.0"
+

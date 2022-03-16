@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="InfoService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <Singleton Name="UserInfo" Type="InfoService.UserInfo"/>
+        <EntitySet Name="PERSONS" EntityType="InfoService.PERSONS"/>
+      </EntityContainer>
+      <EntityType Name="UserInfo">
+        <Key>
+          <PropertyRef Name="Username"/>
+        </Key>
+        <Property Name="Username" Type="Edm.String" Nullable="false"/>
+        <Property Name="Details" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="PERSONS">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="BIRTHDATE" Type="Edm.Date"/>
+        <Property Name="DEATHDATE" Type="Edm.Date"/>
+        <Property Name="SSN" Type="Edm.String"/>
+        <Property Name="DRIVERS" Type="Edm.String"/>
+        <Property Name="PASSPORT" Type="Edm.String"/>
+        <Property Name="PREFIX" Type="Edm.String"/>
+        <Property Name="FIRST" Type="Edm.String"/>
+        <Property Name="LAST" Type="Edm.String"/>
+        <Property Name="SUFFIX" Type="Edm.String"/>
+        <Property Name="MAIDEN" Type="Edm.String"/>
+        <Property Name="MARITAL" Type="Edm.String"/>
+        <Property Name="RACE" Type="Edm.String"/>
+        <Property Name="ETHNICITY" Type="Edm.String"/>
+        <Property Name="GENDER" Type="Edm.String"/>
+        <Property Name="BIRTHPLACE" Type="Edm.String"/>
+        <Property Name="ADDRESS" Type="Edm.String"/>
+        <Property Name="CITY" Type="Edm.String"/>
+        <Property Name="STATE" Type="Edm.String"/>
+        <Property Name="COUNTY" Type="Edm.String"/>
+        <Property Name="ZIP" Type="Edm.Int64"/>
+        <Property Name="LAT" Type="Edm.Decimal" Scale="variable"/>
+        <Property Name="LON" Type="Edm.Decimal" Scale="variable"/>
+      </EntityType>
+      <Annotations Target="InfoService.UserInfo">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="InfoService.EntityContainer/UserInfo">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="InfoService.PERSONS">
+        <Annotation Term="Common.IsNaturalPerson" Bool="true"/>
+        <Annotation Term="UI.SelectionFields">
+          <Collection/>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="LAST"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Visualizations">
+              <Collection>
+                <AnnotationPath>@UI.LineItem</AnnotationPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Patient"/>
+            <PropertyValue Property="TypeNamePlural" String="Patients"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="LAST"/>
+                <PropertyValue Property="Label" String="Last name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="BIRTHDATE"/>
+                <PropertyValue Property="Label" String="Birth date"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="First name"/>
+              <PropertyValue Property="Value" Path="FIRST"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Last name"/>
+              <PropertyValue Property="Value" Path="LAST"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Birth date"/>
+              <PropertyValue Property="Value" Path="BIRTHDATE"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Gender"/>
+              <PropertyValue Property="Value" Path="GENDER"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Address"/>
+              <PropertyValue Property="Value" Path="ADDRESS"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="City"/>
+              <PropertyValue Property="Value" Path="CITY"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="State"/>
+              <PropertyValue Property="Value" Path="STATE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="PersonalData">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="First name"/>
+                  <PropertyValue Property="Value" Path="FIRST"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Last name"/>
+                  <PropertyValue Property="Value" Path="LAST"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Maiden name"/>
+                  <PropertyValue Property="Value" Path="MAIDEN"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Birth date"/>
+                  <PropertyValue Property="Value" Path="BIRTHDATE"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Birth place"/>
+                  <PropertyValue Property="Value" Path="BIRTHPLACE"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Death date"/>
+                  <PropertyValue Property="Value" Path="DEATHDATE"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="TraitsData">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Gender"/>
+                  <PropertyValue Property="Value" Path="GENDER"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Race"/>
+                  <PropertyValue Property="Value" Path="RACE"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Ethnicity"/>
+                  <PropertyValue Property="Value" Path="ETHNICITY"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AddressData">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Address"/>
+                  <PropertyValue Property="Value" Path="ADDRESS"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="City"/>
+                  <PropertyValue Property="Value" Path="CITY"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="State"/>
+                  <PropertyValue Property="Value" Path="STATE"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="County"/>
+                  <PropertyValue Property="Value" Path="COUNTY"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Zip"/>
+                  <PropertyValue Property="Value" Path="ZIP"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Latitude"/>
+                  <PropertyValue Property="Value" Path="LAT"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="Longitude"/>
+                  <PropertyValue Property="Value" Path="LON"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.CollectionFacet">
+              <PropertyValue Property="Label" String="Person Details"/>
+              <PropertyValue Property="Facets">
+                <Collection>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="Personal Data"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#PersonalData"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="Traits Data"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TraitsData"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="Address Data"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AddressData"/>
+                  </Record>
+                </Collection>
+              </PropertyValue>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="InfoService.EntityContainer/PERSONS">
+        <Annotation Term="Capabilities.SearchRestrictions">
+          <Record Type="Capabilities.SearchRestrictionsType">
+            <PropertyValue Property="Searchable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="LAST"/>
+                  <PropertyValue Property="Descending" Bool="false"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Visualizations">
+              <Collection>
+                <AnnotationPath>@UI.LineItem</AnnotationPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
